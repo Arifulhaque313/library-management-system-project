@@ -1,16 +1,11 @@
 <?php
 	session_start();
-	function get_user_issue_book_count(){
-		$connection = mysqli_connect("localhost","root","");
-		$db = mysqli_select_db($connection,"lms");
-		$user_issue_book_count = 0;
-		$query = "select count(*) as user_issue_book_count from issued_book where user_id = $_SESSION[id]";
-		$query_run = mysqli_query($connection,$query);
-		while($row = mysqli_fetch_assoc($query_run)){
-			$user_issue_book_count = $row['user_issue_book_count'];
-	}
-	return($user_issue_book_count);
-}
+	$connection = mysqli_connect("localhost","root","");
+	$db = mysqli_select_db($connection,"lms");
+	$book_name = "";
+	$author = "";
+	$book_no = "";
+	$query = "select book_name,book_author,book_no from issued_book where user_id = $_SESSION[id] and status = 1";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -62,47 +57,45 @@
  </nav>
  
 
- <div class="row container-fluid userdash">
-
+ <style>
     
-  
-
-     <div class="col-md-3"></div>
-        <div class="col-md-3">
-        <div class="card" style="width: 18rem;border-radius:20px">
-            
-            <div class="card-body" >
-               <h5 class="card-title card-header">Issued books </h5>
-               <p class="card-text card-body">No of Issued Books:  <?php echo get_user_issue_book_count();?></p>
-                 <a href="viewissuedbook.php" class="btn btn-success">View issued books </a>
-            </div>
-        </div>
-
-
-        </div>
-        
-
-        <!--
-             <div class="col-md-3">
-        <div class="card" style="width: 18rem;border-radius:20px">
-            
-            <div class="card-body" >
-               <h5 class="card-title card-header">Book Not returned </h5>
-               <p class="card-text card-body">No of Books:--</p>
-                 <a href="#" class="btn btn-danger ">View Not return books </a>
-            </div>
-
-        </div>
-        <div class="col-md-3"></div>
-
-
-
-        -->
-       
-
-
+    table tr th,
+    table tr td{
+        color:white;
+    }
  
+ </style>
+
+ <div class="row" style="padding:50px">
+	<div class="col-md-2"></div>
+	<div class="col-md-8">
+		<form>
+			<table class="table-bordered" width="900px" style="text-align: center">
+				<tr>
+					<th>Book Name:</th>
+					<th>Book Author:</th>
+					<th>Book Number:</th>
+				</tr>
+				<?php
+					$query_run = mysqli_query($connection,$query);
+					while($row = mysqli_fetch_assoc($query_run)){
+						$book_name = $row['book_name'];
+						$author = $row['book_author'];
+						$book_no = $row['book_no'];
+				?>
+						<tr>
+							<td><?php echo $book_name;?></td>
+							<td><?php echo $author;?></td>
+							<td><?php echo $book_no;?></td>
+						</tr>
+						<?php
+					}
+				?>
+			</table>
+		</form>
 	</div>
+	<div class="col-md-2"></div>
+</div>
    
 
    

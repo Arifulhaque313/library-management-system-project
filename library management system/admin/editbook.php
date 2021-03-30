@@ -1,17 +1,23 @@
 <?php
 	require('functions.php');
+	session_start();
 	$connection = mysqli_connect("localhost","root","");
 	$db = mysqli_select_db($connection,"lms");
-	$name = "";
-	$email = "";
-	$mobile = "";
-	$address = "";
-	
-
-	$query = "select * from users";
+	$book_no = "";
+	$book_name = "";
+	$author_id = "";
+	$cat_id = "";
+	$book_price = "";
+	$query = "select * from books where book_no = $_GET[bn]";
+	$query_run = mysqli_query($connection,$query);
+	while($row = mysqli_fetch_assoc($query_run)){
+		$book_name = $row['book name'];
+		$book_no = $row['book_no'];
+		$author_id = $row['author_id'];
+		$cat_id = $row['cat_id'];
+		$book_price = $row['book_price'];
+	}
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +28,7 @@
     <link rel="stylesheet" type="text/css" href="../bootstrap-4.4.1-dist/css/bootstrap.min.css">
     <script type="text/javascript" src="../bootstrap-4.4.1-dist/js/juqery_latest.js"></script>
     <script type="text/javascript" src="../bootstrap-4.4.1-dist/js/bootstrap.min.js"></script>
-    
+    <link rel="stylesheet" type="text/css" href="../style.css">
     
     
 </head>
@@ -43,7 +49,7 @@
 
 
     <!--Here we are creating dashboard navbar Menu-->
-    
+    <font style="color: white"><span><strong>Welcome: <?php echo $_SESSION['name'];?></strong></span></font>
 	
         <ul class="nav navbar-nav navbar-right">
             <li class="nav-item dropdown">
@@ -102,52 +108,47 @@
 	</div>
 
 </nav>
- 
 
+	<br><br>
+	<div class="row" style="padding:50px">
+		<div class="col-md-4"></div>
+		<div class="col-md-4" style="color:white">
+			<form action="" method="post">
+				<div class="form-group">
+					<label>Book No:</label>
+					<input type="text" name="book_no" value="<?php echo $book_no;?>" class="form-control" required="">
+				</div>
+				<div class="form-group">
+					<label>Book Name:</label>
+					<input type="text" name="book_name" value="<?php echo $book_name;?>" class="form-control" required="">
+				</div>
+				<div class="form-group">
+					<label>Author ID:</label>
+					<input type="text" name="author_id" value="<?php echo $author_id;?>" class="form-control" required="">
+				</div>
+				<div class="form-group">
+					<label>Category ID:</label>
+					<input type="text" name="cat_id" value="<?php echo $cat_id;?>" class="form-control" required="">
+				</div>
+				<div class="form-group">
+					<label>Book Price:</label>
+					<input type="text" name="book_price" value="<?php echo $book_price;?>" class="form-control" required="">
+				</div>
+				<button class="btn btn-primary" name="update">Update Book</button>
 
- <div class="row pt-4">
-	<div class="col-md-2"></div>
-	<div class="col-md-8">
-		<form>
-			<table class="table-bordered" width="900px" style="text-align: center">
-				<tr>
-					<th>Name:</th>
-					<th>Email:</th>
-					<th>Mobile:</th>
-					<th>Address:</th>
-				</tr>
-				<?php
-					$query_run = mysqli_query($connection,$query);
-					while($row = mysqli_fetch_assoc($query_run)){
-						$name = $row['name'];
-						$email = $row['email'];
-						$mobile = $row['mobile'];
-						$address = $row['address'];
-				?>
-						<tr>
-							<td><?php echo $name;?></td>
-							<td><?php echo $email;?></td>
-							<td><?php echo $mobile;?></td>
-							<td><?php echo $address;?></td>
-						</tr>
-						<?php
-					}
-				?>
-			</table>
-		</form>
+			</form>
+		</div>
+		<div class="col-md-4"></div>
 	</div>
-	<div class="col-md-2"></div>
-</div>
-
-
-
-
-
-
-
-</div>
-
-</div>
- 
 </body>
 </html>
+
+<?php
+	if(isset($_POST['update'])){
+		$connection = mysqli_connect("localhost","root","");
+		$db = mysqli_select_db($connection,"lms");
+		$query = "update books set book name = '$_POST[book_name]',author_id=$_POST[author_id],cat_id=$_POST[cat_id],book_price = $_POST[book_price] where book_no = $_GET[bn]";
+		$query_run = mysqli_query($connection,$query);
+		
+	}
+?>

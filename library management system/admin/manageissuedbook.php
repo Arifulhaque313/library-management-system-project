@@ -2,13 +2,17 @@
 	require('functions.php');
 	$connection = mysqli_connect("localhost","root","");
 	$db = mysqli_select_db($connection,"lms");
-	$name = "";
-	$email = "";
-	$mobile = "";
-	$address = "";
+	
+    $book_name = "";
+    $author="";
+    $book_no="";
+    $student_name="";
+
+    $query="select issued_book.s_no,issued_book.book_name,issued_book.book_author,issued_book.book_no, users.name from issued_book left join
+    users on issued_book.user_id = users.id";
+    
 	
 
-	$query = "select * from users";
 ?>
 
 
@@ -22,6 +26,7 @@
     <link rel="stylesheet" type="text/css" href="../bootstrap-4.4.1-dist/css/bootstrap.min.css">
     <script type="text/javascript" src="../bootstrap-4.4.1-dist/js/juqery_latest.js"></script>
     <script type="text/javascript" src="../bootstrap-4.4.1-dist/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../style.css">
     
     
     
@@ -65,7 +70,7 @@
    </div>
  </nav>
 
- <nav class="navbar navbar-expand-lg navbar-dark bg-dark" 
+ <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 	<div class="container-fluid">
 		<ul class="nav navbar-nav navbar-center">
 			<li class="nav-item">
@@ -101,34 +106,49 @@
 		</ul>
 	</div>
 
-</nav>
+ </nav>
  
 
 
- <div class="row pt-4">
+ <div class="row" style="padding:50px">
 	<div class="col-md-2"></div>
-	<div class="col-md-8">
+	<div class="col-md-8" style="color:white">
 		<form>
 			<table class="table-bordered" width="900px" style="text-align: center">
 				<tr>
-					<th>Name:</th>
-					<th>Email:</th>
-					<th>Mobile:</th>
-					<th>Address:</th>
+                   
+					<th>Book Name:</th>
+                    <th>Author:</th>
+                    <th>Book No:</th>
+                    <th>Student Name:</th>
+                    <th>Action</th>
+					
+					
 				</tr>
 				<?php
 					$query_run = mysqli_query($connection,$query);
 					while($row = mysqli_fetch_assoc($query_run)){
-						$name = $row['name'];
-						$email = $row['email'];
-						$mobile = $row['mobile'];
-						$address = $row['address'];
+                        
+						$book_name = $row['book_name'];
+                        $book_author = $row['book_author'];
+                        $book_no = $row['book_no'];
+                        $student_name = $row['name'];
+
+						
+						
 				?>
 						<tr>
-							<td><?php echo $name;?></td>
-							<td><?php echo $email;?></td>
-							<td><?php echo $mobile;?></td>
-							<td><?php echo $address;?></td>
+                           
+							<td><?php echo $book_name;?></td>
+                            <td><?php echo $book_author;?></td>
+                            <td><?php echo $book_no;?></td>
+                            <td><?php echo $student_name;?></td>
+                            <td>
+								
+								<button class="btn" name=""><a href="deleteissuedbook.php?ib=<?php echo $row['s_no'];?>">Remove from issued book</a></button>
+							</td>
+							
+							
 						</tr>
 						<?php
 					}

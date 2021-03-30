@@ -32,9 +32,7 @@
 
 <div class="full-wrape ">
 
-
-<!--Nav bar-->
- <nav class="navbar navbar-expand-lg navbar-dark bg-info">
+<nav class="navbar navbar-expand-lg navbar-dark bg-info">
    <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="index.php">Library Management System</a>
@@ -64,7 +62,7 @@
    </div>
  </nav>
 
- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+ <nav class="navbar navbar-expand-lg navbar-dark bg-dark" 
 	<div class="container-fluid">
 		<ul class="nav navbar-nav navbar-center">
 			<li class="nav-item">
@@ -73,31 +71,34 @@
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" data-toggle="dropdown">Book</a>
 				<div class="dropdown-menu">
-					<a href="" class="dropdown-item">Add New Book</a>
-					<a href="" class="dropdown-item">Manage Books</a>
+					<a href="addbook.php" class="dropdown-item">Add New Book</a>
+					<a href="managebook.php" class="dropdown-item">Manage Books</a>
 				</div>
 			</li>
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" data-toggle="dropdown">Category</a>
 				<div class="dropdown-menu">
-					<a href="" class="dropdown-item">Add New Category</a>
-					<a href="" class="dropdown-item">Manage Category</a>
+					<a href="addcat.php" class="dropdown-item">Add New Category</a>
+					<a href="managecat.php" class="dropdown-item">Manage Category</a>
 				</div>
 			</li>
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" data-toggle="dropdown">Author</a>
 				<div class="dropdown-menu">
-					<a href="" class="dropdown-item">Add New Author</a>
-					<a href="" class="dropdown-item">Manage Authors</a>
+					<a href="addauthor.php" class="dropdown-item">Add New Author</a>
+					<a href="manageauthor.php" class="dropdown-item">Manage Authors</a>
 				</div>
 			</li>
 			<li class="nav-item">
-				<a href="" class="nav-link">Issue Book</a>
+				<a href="issuebook.php" class="nav-link">Issue Book</a>
+			</li>
+			<li class="nav-item">
+				<a href="manageissuedbook.php" class="nav-link">Manage Issued Book</a>
 			</li>
 		</ul>
 	</div>
 
- </nav>
+</nav>
  
 
 

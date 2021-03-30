@@ -1,17 +1,7 @@
 <?php
-	require('functions.php');
-	$connection = mysqli_connect("localhost","root","");
-	$db = mysqli_select_db($connection,"lms");
-	$name = "";
-	$email = "";
-	$mobile = "";
-	$address = "";
-	
-
-	$query = "select * from users";
+  require('functions.php');
+	session_start();
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="../bootstrap-4.4.1-dist/css/bootstrap.min.css">
     <script type="text/javascript" src="../bootstrap-4.4.1-dist/js/juqery_latest.js"></script>
     <script type="text/javascript" src="../bootstrap-4.4.1-dist/js/bootstrap.min.js"></script>
-    
+    <link rel="stylesheet" type="text/css" href="../style.css">
     
     
 </head>
@@ -43,7 +33,7 @@
 
 
     <!--Here we are creating dashboard navbar Menu-->
-    
+    <font style="color: white"><span><strong>Welcome: <?php echo $_SESSION['name'];?></strong></span></font>
 	
         <ul class="nav navbar-nav navbar-right">
             <li class="nav-item dropdown">
@@ -105,49 +95,100 @@
  
 
 
- <div class="row pt-4">
-	<div class="col-md-2"></div>
-	<div class="col-md-8">
-		<form>
-			<table class="table-bordered" width="900px" style="text-align: center">
-				<tr>
-					<th>Name:</th>
-					<th>Email:</th>
-					<th>Mobile:</th>
-					<th>Address:</th>
-				</tr>
-				<?php
-					$query_run = mysqli_query($connection,$query);
-					while($row = mysqli_fetch_assoc($query_run)){
-						$name = $row['name'];
-						$email = $row['email'];
-						$mobile = $row['mobile'];
-						$address = $row['address'];
-				?>
-						<tr>
-							<td><?php echo $name;?></td>
-							<td><?php echo $email;?></td>
-							<td><?php echo $mobile;?></td>
-							<td><?php echo $address;?></td>
-						</tr>
-						<?php
-					}
-				?>
-			</table>
-		</form>
-	</div>
-	<div class="col-md-2"></div>
-</div>
 
-
-
-
-
-
-
-</div>
-
-</div>
  
+ 
+
+<<div class="row">
+		<div class="col-md-4"></div>
+		<div class="col-md-4" style="color:white; padding:40px;">
+			<form action="" method="post">
+				<div class="form-group">
+					<label>Book Name:</label>
+					<input type="text" name="book_name" class="form-control" required="">
+				</div>
+				
+
+				<div class="form-group">
+					<label>Author Id:</label>
+					<select class="form-control" name="author_id">
+						
+						<option>-Select author id-</option>
+						<?php
+							$connection = mysqli_connect("localhost","root","");
+							$db = mysqli_select_db($connection,"lms");
+							$query = "select author_id from authors";
+							$query_run = mysqli_query($connection,$query);
+							while($row = mysqli_fetch_assoc($query_run)){
+								?>
+								<option><?php echo $row['author_id'];?></option>
+								<?php
+							}
+						?>
+					</select>
+			
+				
+				</div>
+
+				
+
+
+
+
+
+
+				
+
+				<div class="form-group">
+					<label>Category Id:</label>
+					<select class="form-control" name="cat_id">
+						
+						<option>-Select Category id-</option>
+						<?php
+							$connection = mysqli_connect("localhost","root","");
+							$db = mysqli_select_db($connection,"lms");
+							$query = "select cat_id from categorys";
+							$query_run = mysqli_query($connection,$query);
+							while($row = mysqli_fetch_assoc($query_run)){
+								?>
+								<option><?php echo $row['cat_id'];?></option>
+								<?php
+							}
+						?>
+					</select>
+			
+				
+				</div>
+
+
+
+
+
+
+
+				<div class="form-group">
+					<label>Book No:</label>
+					<input type="text" name="book_no" class="form-control" required="">
+				</div>
+
+				<div class="form-group">
+					<label>Book Price:</label>
+					<input type="text" name="book_price" class="form-control" required="">
+				</div>
+				<button class="btn btn-primary" name="add_book">Add Book</button>
+
+			</form>
+		</div>
+		<div class="col-md-4"></div>
+	</div>
 </body>
 </html>
+
+<?php
+	if(isset($_POST['add_book'])){
+		$connection = mysqli_connect("localhost","root","");
+		$db = mysqli_select_db($connection,"lms");
+		$query = "insert into books values(null,'$_POST[book_name]',$_POST[author_id],$_POST[cat_id],$_POST[book_no],$_POST[book_price])";
+		$query_run = mysqli_query($connection,$query);
+	}
+?>

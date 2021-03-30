@@ -64,26 +64,29 @@
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" data-toggle="dropdown">Book</a>
 				<div class="dropdown-menu">
-					<a href="" class="dropdown-item">Add New Book</a>
-					<a href="" class="dropdown-item">Manage Books</a>
+					<a href="addbook.php" class="dropdown-item">Add New Book</a>
+					<a href="managebook.php" class="dropdown-item">Manage Books</a>
 				</div>
 			</li>
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" data-toggle="dropdown">Category</a>
 				<div class="dropdown-menu">
-					<a href="" class="dropdown-item">Add New Category</a>
-					<a href="" class="dropdown-item">Manage Category</a>
+					<a href="addcat.php" class="dropdown-item">Add New Category</a>
+					<a href="managecat.php" class="dropdown-item">Manage Category</a>
 				</div>
 			</li>
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" data-toggle="dropdown">Author</a>
 				<div class="dropdown-menu">
-					<a href="" class="dropdown-item">Add New Author</a>
-					<a href="" class="dropdown-item">Manage Authors</a>
+					<a href="addauthor.php" class="dropdown-item">Add New Author</a>
+					<a href="manageauthor.php" class="dropdown-item">Manage Authors</a>
 				</div>
 			</li>
 			<li class="nav-item">
-				<a href="" class="nav-link">Issue Book</a>
+				<a href="issuebook.php" class="nav-link">Issue Book</a>
+			</li>
+      <li class="nav-item">
+				<a href="manageissuedbook.php" class="nav-link">Manage Issued Book</a>
 			</li>
 		</ul>
 	</div>
@@ -116,7 +119,7 @@
             <div class="card-body" >
                <h5 class="card-title card-header">Total books </h5>
                <p class="card-text card-body">No of Books: <?php echo get_book_count();?></p>
-                 <a href="viewTotalbooks.php" class="btn btn-primary">View total books </a>
+                 <a href="managebook.php" class="btn btn-primary">View total books </a>
             </div>
           </div>
 
@@ -157,11 +160,11 @@
     <div class="row container-fluid userdash2"style="padding-left:100px">
 
     
-    <div class="col-md-1"></div>
+    <div class="col-md-4"></div>
     
 
 
-        <div class="col-md-3">
+        <div class="col-md-4">
         <div class="card" style="width: 18rem;border-radius:20px">
             
             <div class="card-body" >
@@ -173,18 +176,8 @@
 
         </div>
         
-        <div class="col-md-3">
-        <div class="card" style="width: 18rem;border-radius:20px">
-            
-            <div class="card-body" >
-               <h5 class="card-title card-header">Books not return</h5>
-               <p class="card-text card-body">Books:--</p>
-                 <a href="#" class="btn btn-info">Go somewhere</a>
-            </div>
-          </div>
-
-        </div>
-        <div class="col-md-2"></div>
+      
+        <div class="col-md-4"></div>
 
 
         </div>

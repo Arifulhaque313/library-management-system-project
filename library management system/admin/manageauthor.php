@@ -1,17 +1,7 @@
 <?php
-	require('functions.php');
-	$connection = mysqli_connect("localhost","root","");
-	$db = mysqli_select_db($connection,"lms");
-	$name = "";
-	$email = "";
-	$mobile = "";
-	$address = "";
-	
-
-	$query = "select * from users";
+  require('functions.php');
+	session_start();
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="../bootstrap-4.4.1-dist/css/bootstrap.min.css">
     <script type="text/javascript" src="../bootstrap-4.4.1-dist/js/juqery_latest.js"></script>
     <script type="text/javascript" src="../bootstrap-4.4.1-dist/js/bootstrap.min.js"></script>
-    
+    <link rel="stylesheet" type="text/css" href="../style.css">
     
     
 </head>
@@ -43,7 +33,7 @@
 
 
     <!--Here we are creating dashboard navbar Menu-->
-    
+    <font style="color: white"><span><strong>Welcome: <?php echo $_SESSION['name'];?></strong></span></font>
 	
         <ul class="nav navbar-nav navbar-right">
             <li class="nav-item dropdown">
@@ -105,49 +95,52 @@
  
 
 
- <div class="row pt-4">
-	<div class="col-md-2"></div>
-	<div class="col-md-8">
-		<form>
-			<table class="table-bordered" width="900px" style="text-align: center">
-				<tr>
-					<th>Name:</th>
-					<th>Email:</th>
-					<th>Mobile:</th>
-					<th>Address:</th>
-				</tr>
+
+ 
+ 
+<style>
+    .table tr th{
+        color:white;
+    }
+    .table tr td{
+        color:white;
+    }
+</style>
+<div class="row" style="padding:50px;">
+		<div class="col-md-2"></div>
+		<div class="col-md-8">
+			<table class="table table-bordered table-hover" >
+				<thead>
+					<tr>
+						<th>Author Id</th>
+						<th>Author name</th>
+						<th>Action</th>
+						
+					</tr>
+				</thead>
 				<?php
+					$connection = mysqli_connect("localhost","root","");
+					$db = mysqli_select_db($connection,"lms");
+					$query = "select * from authors";
 					$query_run = mysqli_query($connection,$query);
 					while($row = mysqli_fetch_assoc($query_run)){
-						$name = $row['name'];
-						$email = $row['email'];
-						$mobile = $row['mobile'];
-						$address = $row['address'];
-				?>
+						?>
 						<tr>
-							<td><?php echo $name;?></td>
-							<td><?php echo $email;?></td>
-							<td><?php echo $mobile;?></td>
-							<td><?php echo $address;?></td>
+							
+							<td><?php echo $row['author_id'];?></td>
+                            <td><?php echo $row['author_name'];?></td>
+							
+							<td>
+								<button class="btn" name=""><a href="editauthor.php?aid=<?php echo $row['author_id'];?>">Edit</a></button>
+								<button class="btn" name=""><a href="deleteauthor.php?aid=<?php echo $row['author_id'];?>">Delete</a></button>
+							</td>
 						</tr>
 						<?php
 					}
 				?>
 			</table>
-		</form>
+		</div>
+		<div class="col-md-2"></div>
 	</div>
-	<div class="col-md-2"></div>
-</div>
-
-
-
-
-
-
-
-</div>
-
-</div>
- 
 </body>
 </html>

@@ -1,17 +1,7 @@
 <?php
-	require('functions.php');
-	$connection = mysqli_connect("localhost","root","");
-	$db = mysqli_select_db($connection,"lms");
-	$name = "";
-	$email = "";
-	$mobile = "";
-	$address = "";
-	
-
-	$query = "select * from users";
+  require('functions.php');
+	session_start();
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="../bootstrap-4.4.1-dist/css/bootstrap.min.css">
     <script type="text/javascript" src="../bootstrap-4.4.1-dist/js/juqery_latest.js"></script>
     <script type="text/javascript" src="../bootstrap-4.4.1-dist/js/bootstrap.min.js"></script>
-    
+    <link rel="stylesheet" type="text/css" href="../style.css">
     
     
 </head>
@@ -43,7 +33,7 @@
 
 
     <!--Here we are creating dashboard navbar Menu-->
-    
+    <font style="color: white"><span><strong>Welcome: <?php echo $_SESSION['name'];?></strong></span></font>
 	
         <ul class="nav navbar-nav navbar-right">
             <li class="nav-item dropdown">
@@ -105,49 +95,46 @@
  
 
 
- <div class="row pt-4">
-	<div class="col-md-2"></div>
-	<div class="col-md-8">
-		<form>
-			<table class="table-bordered" width="900px" style="text-align: center">
-				<tr>
-					<th>Name:</th>
-					<th>Email:</th>
-					<th>Mobile:</th>
-					<th>Address:</th>
-				</tr>
-				<?php
-					$query_run = mysqli_query($connection,$query);
-					while($row = mysqli_fetch_assoc($query_run)){
-						$name = $row['name'];
-						$email = $row['email'];
-						$mobile = $row['mobile'];
-						$address = $row['address'];
-				?>
-						<tr>
-							<td><?php echo $name;?></td>
-							<td><?php echo $email;?></td>
-							<td><?php echo $mobile;?></td>
-							<td><?php echo $address;?></td>
-						</tr>
-						<?php
-					}
-				?>
-			</table>
-		</form>
-	</div>
-	<div class="col-md-2"></div>
-</div>
-
-
-
-
-
-
-
-</div>
-
-</div>
  
+
+<div class="row pt-4">
+    <div class="col-md-4">
+
+    </div>
+    
+    <div class="col-md-4" style="padding:40px">
+        <form action="" method="post"> 
+            <div class="form-group">
+                <label for="" style="color : white;">Category Name:</label>
+                <input type="text" name="cat_name" class="form-control" required="">
+            </div>  
+           
+           
+            
+            <button class="btn btn-primary" name="add_cat">Add Category</button>
+            
+        </form>
+    </div>
+    
+    
+    <div class="col-md-4">
+
+    </div>
+
+</div>
+
+
+ 
+
+   
 </body>
 </html>
+
+<?php
+	if(isset($_POST['add_cat'])){
+		$connection = mysqli_connect("localhost","root","");
+		$db = mysqli_select_db($connection,"lms");
+		$query = "insert into categorys values(null,'$_POST[cat_name]')";
+		$query_run = mysqli_query($connection,$query);
+	}
+?>
